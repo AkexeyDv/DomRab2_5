@@ -5,9 +5,9 @@ import java.util.List;
 public interface EmployeeInterface {
     String hello();
 
-    List<Employee> getEmployeesList();
+    List<Employee> printList();
 
-    void newEmployee(String name, String lastName);
+    Employee newEmployee(String name, String lastName);
 
     Employee findEmployee(String name, String lastName);
 
