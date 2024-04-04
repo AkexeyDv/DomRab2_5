@@ -25,7 +25,7 @@ public class Employee {
     @Override
     public String toString() {
         /*{ "firstName": "Ivan", "lastName": "Ivanov" }*/
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }";
+        return "{ \"name\": \"" + name + "\", \"lastName\": \"" + lastName + "\" }";
     }
 
     @Override

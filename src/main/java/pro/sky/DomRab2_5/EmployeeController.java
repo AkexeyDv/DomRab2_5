@@ -12,34 +12,35 @@ public class EmployeeController {
         this.employees = employees;
     }
 
-    @GetMapping(path ="/employee")
+    @GetMapping(path = "/employee")
     public String hello() {
-        return employees.getEmployeesList().toString() ;
+        return employees.getEmployeesList().toString();
     }
-
 
 
     @GetMapping(path = "/employee/add")
     public String addEmployee(@RequestParam("name") String name,
                               @RequestParam("lastName") String lastName) {
-        employees.newEmployee(name,lastName);
+        employees.newEmployee(name, lastName);
 
 
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }"+" добавлен в список сотрудников";
+        return "{ \"name\": \"" + name + "\", \"lastName\": \"" + lastName + "\" }" + " добавлен в список сотрудников";
 
     }
+
     @GetMapping(path = "/employee/find")
     public String findEmployee(@RequestParam("name") String name,
-                               @RequestParam("lastName") String lastName){
-        employees.findEmployee(name,lastName);
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }"+" найден";
+                               @RequestParam("lastName") String lastName) {
+        employees.findEmployee(name, lastName);
+        return "{ \"name\": \"" + name + "\", \"lastName\": \"" + lastName + "\" }" + " найден";
 
     }
-    @GetMapping(path="/employee/remove")
+
+    @GetMapping(path = "/employee/remove")
     public String removeEmployee(@RequestParam("name") String name,
-                                 @RequestParam("lastName") String lastName){
-        employees.delEmployee(name,lastName);
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }" + "удален";
+                                 @RequestParam("lastName") String lastName) {
+        employees.delEmployee(name, lastName);
+        return "{ \"name\": \"" + name + "\", \"lastName\": \"" + lastName + "\" }" + "удален";
     }
 
 }
