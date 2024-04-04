@@ -12,6 +12,7 @@ public class Employee {
         this.lastName = lastName;
     }
 
+
     public String getName() {
         return name;
     }
@@ -24,8 +25,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        /*{ "firstName": "Ivan", "lastName": "Ivanov" }*/
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }";
+        return name + " " + lastName;
     }
 
     @Override
