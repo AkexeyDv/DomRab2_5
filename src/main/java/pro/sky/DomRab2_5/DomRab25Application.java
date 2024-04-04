@@ -10,6 +10,4 @@ public class DomRab25Application {
         SpringApplication.run(DomRab25Application.class, args);
 
     }
-
-
 }
