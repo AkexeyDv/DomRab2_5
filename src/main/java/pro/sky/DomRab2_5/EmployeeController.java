@@ -15,31 +15,31 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/employee")
-    public List<Employee> hello() {
-        return employees.printList();
+    public String hello() {
+        return employees.printMap();
     }
 
 
     @GetMapping(path = "/employee/add")
     public Employee addEmployee(@RequestParam("name") String name,
-                                @RequestParam("lastName") String lastName) {
+                                @RequestParam("surName") String surName) {
 
 
-        return employees.newEmployee(name, lastName);
+        return employees.newEmployee(name, surName);
     }
 
     @GetMapping(path = "/employee/find")
     public Employee findEmployee(@RequestParam("name") String name,
-                                 @RequestParam("lastName") String lastName) {
-        return employees.findEmployee(name, lastName);
+                                 @RequestParam("surName") String surName) {
+        return employees.findEmployee(name, surName);
 
     }
 
     @GetMapping(path = "/employee/remove")
     public Employee removeEmployee(@RequestParam("name") String name,
-                                   @RequestParam("lastName") String lastName) {
-        employees.delEmployee(name, lastName);
-        return employees.delEmployee(name, lastName);
+                                   @RequestParam("surName") String surName) {
+        //employees.delEmployee(name, surName);
+        return employees.delEmployee(name, surName);
     }
 
 }
