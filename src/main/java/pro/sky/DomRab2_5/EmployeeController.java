@@ -4,42 +4,42 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class EmployeeController {
-    private final EmployeeInterface employees;
+    private final EmployeeService employees;
 
-    public EmployeeController(EmployeeInterface employees) {
+    public EmployeeController(EmployeeService employees) {
         this.employees = employees;
     }
 
-    @GetMapping(path ="/employee")
+    @GetMapping(path = "/employee")
     public String hello() {
-        return employees.getEmployeesList().toString() ;
+        return employees.printMap();
     }
-
 
 
     @GetMapping(path = "/employee/add")
-    public String addEmployee(@RequestParam("name") String name,
-                              @RequestParam("lastName") String lastName) {
-        employees.newEmployee(name,lastName);
+    public Employee addEmployee(@RequestParam("name") String name,
+                                @RequestParam("surName") String surName) {
 
 
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }"+" добавлен в список сотрудников";
-
+        return employees.newEmployee(name, surName);
     }
+
     @GetMapping(path = "/employee/find")
-    public String findEmployee(@RequestParam("name") String name,
-                               @RequestParam("lastName") String lastName){
-        employees.findEmployee(name,lastName);
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }"+" найден";
+    public Employee findEmployee(@RequestParam("name") String name,
+                                 @RequestParam("surName") String surName) {
+        return employees.findEmployee(name, surName);
 
     }
-    @GetMapping(path="/employee/remove")
-    public String removeEmployee(@RequestParam("name") String name,
-                                 @RequestParam("lastName") String lastName){
-        employees.delEmployee(name,lastName);
-        return "{ \"name\": \""+name + "\", \"lastName\": \"" + lastName+"\" }" + "удален";
+
+    @GetMapping(path = "/employee/remove")
+    public Employee removeEmployee(@RequestParam("name") String name,
+                                   @RequestParam("surName") String surName) {
+        //employees.delEmployee(name, surName);
+        return employees.delEmployee(name, surName);
     }
 
 }

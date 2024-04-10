@@ -1,64 +1,55 @@
 package pro.sky.DomRab2_5;
+
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Map;
 
 @Service
 public class EmployeeService implements EmployeeInterface {
-    private List<Employee> employeesList =new ArrayList<>() ;
-    private final int countMax=3;
+    private Map<String, Employee> employeesMap;
+    private final int countMax = 20;
 
-    public EmployeeService(List<Employee> employeeList) {
-        this.employeesList = employeeList;
+    public EmployeeService(Map<String, Employee> employeesMap) {
+        this.employeesMap = employeesMap;
     }
 
     @Override
-    public void newEmployee(String name, String lastName){
-        boolean employeeYes=false;
-        for (Employee employeeList: employeesList){
-            if(employeeList.getName().equals(name)&&employeeList.getLastName().equals(lastName)){
-                employeeYes=true;
-            }
-        }
-        if(employeesList.size()>=countMax){
+    public Employee newEmployee(String name, String surName) {
+        if (employeesMap.size() >= countMax) {
             throw new EmployeeStorageIsFullException("БД уже полностью заполена");
         }
-        if(employeeYes==false){
-            employeesList.add(new Employee(name,lastName));
-
-        }else {
+        if (employeesMap.containsKey(name + surName)) {
             throw new EmployeeAlreadyAddedException("Такой сотрудник уже существует в базе");
         }
 
+        employeesMap.put(name + surName, new Employee(name, surName));
+        return employeesMap.get(name + surName);
 
     }
-    public Employee findEmployee(String name, String lastName){
-        for (Employee employeeList: employeesList) {
-            if (employeeList.getName().equals(name) && employeeList.getLastName().equals(lastName)) {
-                return employeeList;
-            }
+
+    @Override
+    public Employee delEmployee(String name, String surName) {
+        if (employeesMap.containsKey(name+surName)){
+            Employee currentDelEmployee = employeesMap.get(name + surName);
+            employeesMap.remove(name + surName);
+            return currentDelEmployee;
         }
-
         throw new EmployeeNotFoundException("Сотрудник не обнаружен");
-    }
-    public Employee delEmployee(String name, String lastName){
-        Employee currentDelEmployee=findEmployee(name,lastName);
-        employeesList.remove(currentDelEmployee);
-        return currentDelEmployee;
+
     }
 
     @Override
-    public  List<Employee> getEmployeesList() {
-        return employeesList;
+    public Employee findEmployee(String name, String surName) {
+        if (employeesMap.containsKey(name + surName)) {
+            return employeesMap.get(name + surName);
+        }
+        throw new RuntimeException("Сотрудник не обнаружен");
     }
-
-
-
-
 
     @Override
-    public String hello() {
-        return "Привет! С вами отдел кадров!";
+    public String printMap() {
+        return employeesMap.values().toString();
     }
+
 
 }
